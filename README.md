@@ -30,6 +30,12 @@
 
 ---
 
+## Demo
+
+![Enterprise Knowledge Assistant — grounded answer with citations and confidence score](Demo/1.png)
+
+---
+
 ## ✨ What Makes This Different
 
 <table>
@@ -79,7 +85,7 @@ flowchart TD
     UI -->|"POST /ask
     {query, history}"| API
 
-    subgraph Backend["⚡  Backend  (port 8000)"]
+    subgraph Backend["⚡  Backend  (port 8001)"]
         API["FastAPI
         CorrelationId · ErrorHandler
         MetricsStore  p50/p95"]
@@ -278,8 +284,8 @@ mkdir -p data/raw data/processed data/vector_store
 ```bash
 # Terminal 1
 uvicorn main:app --reload
-# → http://localhost:8000
-# → http://localhost:8000/docs   (Swagger UI)
+# → http://localhost:8001
+# → http://localhost:8001/docs   (Swagger UI)
 ```
 
 ### 5 — Start the UI
@@ -298,7 +304,7 @@ Open `http://localhost:8501`, go to the **Admin** page → click **Rebuild Index
 **Option B — via terminal:**
 ```bash
 # Drop PDFs into data/raw/, then:
-curl -X POST http://localhost:8000/rebuild-index | python -m json.tool
+curl -X POST http://localhost:8001/rebuild-index | python -m json.tool
 ```
 
 Expected response:
@@ -474,7 +480,7 @@ Runs 15 benchmark questions across 3 source documents and writes a markdown repo
 | `refusal_rate_on_unsupported` | Correct refusals for out-of-scope questions |
 | `latency_p50 / p95` | End-to-end response time percentiles |
 
-Live latency metrics are also available at `http://localhost:8000/metrics` while the server is running.
+Live latency metrics are also available at `http://localhost:8001/metrics` while the server is running.
 
 ---
 
